@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import DataTable, { Column } from "@/components/admin/data-table/DataTable";
 import ConfirmDialog from "@/components/admin/ui/ConfirmDialog";
 
@@ -91,9 +92,9 @@ export default function AdminUsersPage() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold text-gray-800">Utenti</h1>
-        <a href="/admin/users/new" className="px-3 py-1.5 bg-[#2271b1] text-white text-sm rounded hover:bg-[#1761a8] transition-colors">
+        <Link href="/admin/users/new" className="px-3 py-1.5 bg-[#2271b1] text-white text-sm rounded hover:bg-[#1761a8] transition-colors">
           + Aggiungi
-        </a>
+        </Link>
       </div>
       <DataTable
         data={users}

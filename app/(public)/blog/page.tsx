@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import type { Metadata } from "next";
+import Link from "next/link";
 import BlogCard from "@/components/shared/BlogCard";
 import { FileText } from "lucide-react";
 
@@ -50,9 +51,9 @@ export default async function BlogPage({ searchParams }: Props) {
             <span className="rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-sm font-medium text-zinc-300">
               #{tag}
             </span>
-            <a href="/blog" className="text-xs text-zinc-500 transition-colors hover:text-zinc-300">
+            <Link href="/blog" className="text-xs text-zinc-500 transition-colors hover:text-zinc-300">
               Rimuovi filtro
-            </a>
+            </Link>
           </div>
         )}
       </div>

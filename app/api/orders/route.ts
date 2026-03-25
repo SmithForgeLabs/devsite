@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { withRoles, getAuthUser, apiError, apiValidationError } from "@/lib/middleware/rbac";
+import { getAuthUser, apiError, apiValidationError } from "@/lib/middleware/rbac";
 import { checkRateLimit, rateLimits } from "@/lib/middleware/rateLimit";
 import { createOrderSchema } from "@/lib/validations/schemas";
 import { ZodError } from "zod";

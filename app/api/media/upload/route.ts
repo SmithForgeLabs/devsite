@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { getAuthUser, apiError } from "@/lib/middleware/rbac";
 import { checkRateLimit, rateLimits } from "@/lib/middleware/rateLimit";
 import { storage } from "@/lib/storage";
-import path from "path";
 
 const ALLOWED_MIME_TYPES: Record<string, "IMAGE" | "VIDEO" | "FILE"> = {
   "image/jpeg": "IMAGE",

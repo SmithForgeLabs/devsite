@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { withAuth, withRoles, apiError, apiValidationError } from "@/lib/middleware/rbac";
+import { withRoles, apiError, apiValidationError } from "@/lib/middleware/rbac";
 import { checkRateLimit, rateLimits } from "@/lib/middleware/rateLimit";
 import { createPageSchema } from "@/lib/validations/schemas";
 import { addNavItem } from "@/lib/nav/navItems";

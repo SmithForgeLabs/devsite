@@ -2,13 +2,6 @@
 
 import { CheckCircle, Clock, Truck, Package, XCircle, RefreshCw } from "lucide-react";
 
-interface TimelineEvent {
-  status: string;
-  label: string;
-  date?: string;
-  note?: string;
-}
-
 interface OrderTimelineProps {
   status: string;
   createdAt: string;

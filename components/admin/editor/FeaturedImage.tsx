@@ -13,7 +13,7 @@ interface FeaturedImageProps {
 
 export default function FeaturedImage({
   imageUrl,
-  storageKey,
+  storageKey: _storageKey,
   onSelect,
   onRemove,
 }: FeaturedImageProps) {

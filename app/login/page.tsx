@@ -38,9 +38,9 @@ export default function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-[#09090B] px-4">
       <div className="w-full max-w-md">
         <div className="mb-4">
-          <a href="/" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
+          <Link href="/" className="inline-flex items-center gap-1 text-sm text-zinc-500 hover:text-zinc-300 transition-colors">
             ← Torna al sito
-          </a>
+          </Link>
         </div>
       <div className="rounded-xl border border-white/10 bg-white/[0.04] p-8">
         <div className="mb-6 text-center">

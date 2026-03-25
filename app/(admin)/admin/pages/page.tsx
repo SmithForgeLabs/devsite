@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
 import DataTable, { Column, BulkAction, StatusTab } from "@/components/admin/data-table/DataTable";
 import ConfirmDialog from "@/components/admin/ui/ConfirmDialog";
 
@@ -119,9 +120,9 @@ export default function AdminPagesPage() {
     <div className="space-y-4">
       <div className="flex items-center justify-between">
         <h1 className="text-xl font-semibold text-gray-800">Pagine</h1>
-        <a href="/admin/pages/new" className="px-3 py-1.5 bg-[#2271b1] text-white text-sm rounded hover:bg-[#1761a8] transition-colors">
+        <Link href="/admin/pages/new" className="px-3 py-1.5 bg-[#2271b1] text-white text-sm rounded hover:bg-[#1761a8] transition-colors">
           + Aggiungi
-        </a>
+        </Link>
       </div>
       <DataTable
         data={pages}

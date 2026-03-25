@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
-import { getAuthUser, withRoles, apiError } from "@/lib/middleware/rbac";
+import { withRoles, apiError } from "@/lib/middleware/rbac";
 import { storage } from "@/lib/storage";
 
 type KeyParams = { params: Promise<{ key: string }> };

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { FileText, ShoppingCart, Users, Package } from "lucide-react";
 
 interface Stats {
@@ -100,7 +101,7 @@ export default function StatsOverview() {
 
       {/* Revenue full-width card */}
       {stats && (
-        <a
+        <Link
           href="/admin/orders"
           className="bg-white border border-gray-200 rounded-lg p-4 flex items-center gap-4 col-span-2 lg:col-span-4 hover:shadow-md transition-shadow"
         >
@@ -119,7 +120,7 @@ export default function StatsOverview() {
             <p className="text-sm font-medium text-gray-700">{stats.orders} ordini totali</p>
             <p className="text-xs text-gray-400">{stats.pages} pagine · {stats.mediaFiles} file media</p>
           </div>
-        </a>
+        </Link>
       )}
     </div>
   );

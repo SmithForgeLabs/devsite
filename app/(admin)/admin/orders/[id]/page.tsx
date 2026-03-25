@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import { prisma } from "@/lib/prisma";
 import OrderDetail from "@/components/admin/orders/OrderDetail";
 import { ArrowLeft } from "lucide-react";
@@ -52,12 +53,12 @@ export default async function AdminOrderDetailPage({ params }: Props) {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3">
-        <a
+        <Link
           href="/admin/orders"
           className="flex items-center gap-1.5 text-sm text-[#2271b1] hover:underline"
         >
           <ArrowLeft size={14} /> Ordini
-        </a>
+        </Link>
         <h1 className="text-xl font-semibold text-gray-800">
           Ordine #{order.id.slice(-8).toUpperCase()}
         </h1>

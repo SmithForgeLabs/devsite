@@ -3,7 +3,6 @@ import { prisma } from "@/lib/prisma";
 import { withRoles, getAuthUser, apiError, apiValidationError } from "@/lib/middleware/rbac";
 import { updateUserSchema } from "@/lib/validations/schemas";
 import { ZodError } from "zod";
-import bcrypt from "bcryptjs";
 
 type Params = { params: Promise<{ id: string }> };
 

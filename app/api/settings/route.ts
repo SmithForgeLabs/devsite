@@ -6,8 +6,6 @@ import { logActivity } from "@/lib/activity";
 import { ZodError } from "zod";
 import type { TokenPayload } from "@/lib/auth";
 
-const PUBLIC_KEYS = ["site_name", "tagline", "logo", "footer_text", "social_links"];
-
 export const GET = withRoles(
   ["ADMIN"],
   async () => {

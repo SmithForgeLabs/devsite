@@ -1,11 +1,11 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { withRoles } from "@/lib/middleware/rbac";
 
 export const GET = withRoles(
   ["ADMIN", "EDITOR"],
   async () => {
-    const [posts, pages, products, orders, users, revenue] = await Promise.all([
+    const [_posts, pages, products, orders, users, revenue] = await Promise.all([
       prisma.post.count(),
       prisma.page.count(),
       prisma.product.count(),
@@ -18,7 +18,7 @@ export const GET = withRoles(
     ]);
 
     // Additional breakdowns
-    const [publishedPosts, draftPosts, pendingOrders, publishedProducts] = await Promise.all([
+    const [publishedPosts, _draftPosts, pendingOrders, _publishedProducts] = await Promise.all([
       prisma.post.count({ where: { status: "PUBLISHED" } }),
       prisma.post.count({ where: { status: "DRAFT" } }),
       prisma.order.count({ where: { status: "PENDING" } }),

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import {
   FilePlus2,
   PencilLine,
@@ -77,9 +78,9 @@ export default function RecentActivity() {
     <div className="bg-white border border-gray-100 rounded-xl shadow-sm overflow-hidden">
       <div className="px-5 py-3.5 border-b border-gray-100 flex items-center justify-between">
         <h3 className="font-semibold text-sm text-gray-800">Attività recente</h3>
-        <a href="/admin/activity" className="text-xs font-medium text-blue-500 hover:text-blue-700 transition-colors">
+        <Link href="/admin/activity" className="text-xs font-medium text-blue-500 hover:text-blue-700 transition-colors">
           Vedi tutto
-        </a>
+        </Link>
       </div>
 
       {loading ? (
