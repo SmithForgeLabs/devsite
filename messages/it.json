@@ -1,0 +1,379 @@
+{
+  "common": {
+    "loading": "Caricamento...",
+    "error": "Si è verificato un errore",
+    "notFound": "Pagina non trovata",
+    "backHome": "Torna alla home",
+    "save": "Salva",
+    "cancel": "Annulla",
+    "delete": "Elimina",
+    "edit": "Modifica",
+    "create": "Crea",
+    "confirm": "Conferma",
+    "search": "Cerca",
+    "filter": "Filtra",
+    "all": "Tutti",
+    "published": "Pubblicato",
+    "draft": "Bozza",
+    "required": "Campo obbligatorio",
+    "optional": "Opzionale"
+  },
+  "nav": {
+    "home": "Home",
+    "blog": "Blog",
+    "portfolio": "Portfolio",
+    "shop": "Negozio",
+    "cart": "Carrello",
+    "account": "Account",
+    "admin": "Pannello",
+    "logout": "Esci",
+    "login": "Accedi",
+    "register": "Registrati"
+  },
+  "home": {
+    "hero": {
+      "title": "Benvenuto",
+      "subtitle": "Scopri i nostri prodotti e servizi",
+      "cta": "Esplora il negozio"
+    },
+    "features": {
+      "quality": "Alta qualità",
+      "delivery": "Spedizione rapida",
+      "security": "Pagamenti sicuri"
+    }
+  },
+  "blog": {
+    "title": "Blog",
+    "subtitle": "Articoli e notizie",
+    "readMore": "Leggi di più",
+    "by": "Di",
+    "publishedOn": "Pubblicato il",
+    "tags": "Tag",
+    "noArticles": "Nessun articolo disponibile"
+  },
+  "portfolio": {
+    "title": "Portfolio",
+    "subtitle": "I nostri lavori",
+    "viewProject": "Visualizza progetto"
+  },
+  "shop": {
+    "title": "Negozio",
+    "subtitle": "I nostri prodotti",
+    "addToCart": "Aggiungi al carrello",
+    "outOfStock": "Non disponibile",
+    "price": "Prezzo",
+    "category": "Categoria",
+    "stock": "Disponibilità",
+    "inStock": "Disponibile",
+    "sort": {
+      "label": "Ordina per",
+      "newest": "Più recenti",
+      "priceAsc": "Prezzo crescente",
+      "priceDesc": "Prezzo decrescente"
+    },
+    "noProducts": "Nessun prodotto disponibile"
+  },
+  "cart": {
+    "title": "Carrello",
+    "empty": "Il carrello è vuoto",
+    "continueShopping": "Continua lo shopping",
+    "total": "Totale",
+    "subtotal": "Subtotale",
+    "quantity": "Quantità",
+    "remove": "Rimuovi",
+    "checkout": "Procedi all'ordine"
+  },
+  "checkout": {
+    "title": "Completa l'ordine",
+    "fields": {
+      "name": "Nome e cognome",
+      "email": "Email",
+      "address": "Indirizzo",
+      "city": "Città",
+      "zip": "CAP",
+      "country": "Paese",
+      "notes": "Note (opzionale)"
+    },
+    "submit": "Invia ordine",
+    "success": "Ordine ricevuto! Ti contatteremo presto.",
+    "paymentNote": "Il pagamento verrà concordato direttamente."
+  },
+  "auth": {
+    "login": {
+      "title": "Accedi",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Accedi",
+      "noAccount": "Non hai un account?",
+      "forgotPassword": "Password dimenticata?"
+    },
+    "register": {
+      "title": "Registrati",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Conferma password",
+      "submit": "Crea account",
+      "hasAccount": "Hai già un account?"
+    },
+    "errors": {
+      "invalidCredentials": "Email o password non validi",
+      "emailTaken": "Email già in uso",
+      "weakPassword": "La password deve contenere almeno 8 caratteri",
+      "passwordMismatch": "Le password non coincidono"
+    }
+  },
+  "admin": {
+    "sidebar": {
+      "dashboard": "Dashboard",
+      "posts": "Articoli",
+      "allPosts": "Tutti gli articoli",
+      "addNewPost": "Aggiungi nuovo",
+      "pages": "Pagine",
+      "allPages": "Tutte le pagine",
+      "addNewPage": "Aggiungi nuova",
+      "products": "Prodotti",
+      "allProducts": "Tutti i prodotti",
+      "addNewProduct": "Aggiungi nuovo",
+      "productCategories": "Categorie",
+      "orders": "Ordini",
+      "media": "Media",
+      "mediaLibrary": "Libreria",
+      "addNewMedia": "Aggiungi nuovo",
+      "users": "Utenti",
+      "allUsers": "Tutti gli utenti",
+      "addNewUser": "Aggiungi nuovo",
+      "settings": "Impostazioni",
+      "generalSettings": "Generali",
+      "appearanceSettings": "Aspetto",
+      "seoSettings": "SEO",
+      "collapse": "Comprimi menu"
+    },
+    "topbar": {
+      "viewSite": "Visita il sito",
+      "newPost": "Articolo",
+      "newPage": "Pagina",
+      "newProduct": "Prodotto",
+      "newItem": "Nuovo",
+      "profile": "Profilo",
+      "logout": "Esci"
+    },
+    "dashboard": {
+      "title": "Dashboard",
+      "overview": "Panoramica",
+      "posts": "Articoli",
+      "pages": "Pagine",
+      "products": "Prodotti",
+      "orders": "Ordini",
+      "users": "Utenti",
+      "revenue": "Entrate totali",
+      "recentActivity": "Attività recente",
+      "noActivity": "Nessuna attività recente.",
+      "quickDraft": "Bozza veloce",
+      "quickDraftTitle": "Titolo",
+      "quickDraftContent": "Contenuto",
+      "quickDraftSave": "Salva bozza",
+      "activityCreated": "ha creato",
+      "activityUpdated": "ha aggiornato",
+      "activityDeleted": "ha eliminato",
+      "activityPublished": "ha pubblicato"
+    },
+    "dataTable": {
+      "all": "Tutti",
+      "published": "Pubblicati",
+      "drafts": "Bozze",
+      "search": "Cerca...",
+      "bulkActions": "Azioni di massa",
+      "apply": "Applica",
+      "publish": "Pubblica",
+      "moveToDraft": "Sposta in bozza",
+      "moveToTrash": "Sposta nel cestino",
+      "edit": "Modifica",
+      "quickEdit": "Modifica rapida",
+      "trash": "Cestino",
+      "view": "Visualizza",
+      "noResults": "Nessun elemento trovato.",
+      "itemsSelected": "{count} elementi selezionati",
+      "showing": "Mostrando {from}-{to} di {total}",
+      "perPage": "per pagina",
+      "selectAll": "Seleziona tutti",
+      "title": "Titolo",
+      "author": "Autore",
+      "categories": "Categorie",
+      "tags": "Tag",
+      "date": "Data",
+      "status": "Stato"
+    },
+    "editor": {
+      "backToList": "Torna alla lista",
+      "addTitle": "Aggiungi titolo",
+      "permalink": "Permalink",
+      "editSlug": "Modifica",
+      "publish": "Pubblica",
+      "update": "Aggiorna",
+      "saveDraft": "Salva bozza",
+      "preview": "Anteprima",
+      "publishBox": "Pubblica",
+      "status": "Stato",
+      "draft": "Bozza",
+      "published": "Pubblicato",
+      "publishDate": "Data di pubblicazione",
+      "immediately": "Immediatamente",
+      "schedule": "Programma",
+      "visibility": "Visibilità"
+    },
+    "metaBoxes": {
+      "categories": "Categorie",
+      "tags": "Tag",
+      "addTag": "Aggiungi tag",
+      "featuredImage": "Immagine in evidenza",
+      "setFeaturedImage": "Imposta immagine in evidenza",
+      "removeFeaturedImage": "Rimuovi immagine in evidenza",
+      "excerpt": "Estratto",
+      "excerptHelp": "L'estratto è un breve riassunto del contenuto.",
+      "seo": "SEO",
+      "seoTitle": "Titolo SEO",
+      "seoDescription": "Descrizione SEO",
+      "seoPreview": "Anteprima Google",
+      "seoTitlePlaceholder": "Lascia vuoto per usare il titolo dell'articolo",
+      "seoDescriptionPlaceholder": "Lascia vuoto per usare l'estratto"
+    },
+    "media": {
+      "title": "Libreria media",
+      "upload": "Carica file",
+      "dragDrop": "Trascina i file qui o clicca per caricare",
+      "gridView": "Vista griglia",
+      "listView": "Vista lista",
+      "allTypes": "Tutti i tipi",
+      "images": "Immagini",
+      "videos": "Video",
+      "files": "File",
+      "fileName": "Nome file",
+      "fileType": "Tipo",
+      "fileSize": "Dimensione",
+      "uploadDate": "Data caricamento",
+      "uploadedBy": "Caricato da",
+      "delete": "Elimina",
+      "copyUrl": "Copia URL",
+      "selectMedia": "Seleziona media",
+      "uploadNew": "Carica nuovo",
+      "noMedia": "Nessun file multimediale trovato."
+    },
+    "products": {
+      "title": "Prodotti",
+      "general": "Generale",
+      "inventory": "Inventario",
+      "images": "Immagini",
+      "price": "Prezzo",
+      "salePrice": "Prezzo scontato",
+      "sku": "SKU",
+      "stock": "Giacenza",
+      "inStock": "Disponibile",
+      "outOfStock": "Non disponibile",
+      "manageStock": "Gestisci giacenza",
+      "productGallery": "Galleria prodotto",
+      "addImages": "Aggiungi immagini",
+      "dragToReorder": "Trascina per riordinare"
+    },
+    "orders": {
+      "title": "Ordini",
+      "orderNumber": "Ordine #",
+      "customer": "Cliente",
+      "total": "Totale",
+      "date": "Data",
+      "status": "Stato",
+      "items": "Articoli",
+      "shippingInfo": "Info spedizione",
+      "customerInfo": "Info cliente",
+      "orderNotes": "Note ordine",
+      "updateStatus": "Aggiorna stato",
+      "statusPending": "In attesa",
+      "statusConfirmed": "Confermato",
+      "statusShipped": "Spedito",
+      "statusDelivered": "Consegnato",
+      "statusCancelled": "Annullato",
+      "timeline": "Cronologia"
+    },
+    "users": {
+      "title": "Utenti",
+      "name": "Nome",
+      "email": "Email",
+      "role": "Ruolo",
+      "registered": "Registrato",
+      "admin": "Amministratore",
+      "editor": "Editore",
+      "reader": "Lettore",
+      "changeRole": "Cambia ruolo",
+      "avatar": "Avatar"
+    },
+    "settings": {
+      "title": "Impostazioni",
+      "general": {
+        "title": "Generali",
+        "siteName": "Nome del sito",
+        "tagline": "Sottotitolo",
+        "siteUrl": "URL del sito",
+        "adminEmail": "Email amministratore",
+        "logo": "Logo del sito"
+      },
+      "appearance": {
+        "title": "Aspetto",
+        "footerText": "Testo footer",
+        "socialLinks": "Link social",
+        "themeColors": "Colori tema",
+        "primaryColor": "Colore primario",
+        "secondaryColor": "Colore secondario"
+      },
+      "seo": {
+        "title": "SEO",
+        "defaultTitle": "Titolo predefinito",
+        "titleTemplate": "Template titolo",
+        "defaultDescription": "Descrizione predefinita",
+        "ogImage": "Immagine Open Graph predefinita"
+      },
+      "saved": "Impostazioni salvate con successo."
+    },
+    "notifications": {
+      "saved": "Salvato con successo.",
+      "deleted": "Eliminato con successo.",
+      "published": "Pubblicato con successo.",
+      "error": "Si è verificato un errore. Riprova.",
+      "unsavedChanges": "Hai modifiche non salvate. Vuoi uscire?"
+    }
+  },
+  "errors": {
+    "404": {
+      "title": "Pagina non trovata",
+      "message": "La pagina che stai cercando non esiste.",
+      "cta": "Torna alla home"
+    },
+    "500": {
+      "title": "Errore interno",
+      "message": "Qualcosa è andato storto. Riprova più tardi."
+    }
+  },
+  "footer": {
+    "rights": "Tutti i diritti riservati",
+    "privacy": "Privacy policy",
+    "terms": "Termini di servizio",
+    "switchToPhone": "Versione mobile",
+    "switchToPc": "Versione desktop"
+  },
+  "meta": {
+    "home": {
+      "title": "Home",
+      "description": "Scopri i nostri prodotti e servizi di qualità."
+    },
+    "blog": {
+      "title": "Blog",
+      "description": "Articoli, notizie e aggiornamenti."
+    },
+    "shop": {
+      "title": "Negozio",
+      "description": "Acquista i nostri prodotti online."
+    },
+    "portfolio": {
+      "title": "Portfolio",
+      "description": "I nostri progetti e lavori."
+    }
+  }
+}

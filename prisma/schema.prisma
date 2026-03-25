@@ -1,0 +1,293 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+enum Role {
+  ADMIN
+  EDITOR
+  READER
+}
+
+enum PageType {
+  LANDING
+  PORTFOLIO
+  BLOG
+  SHOP
+}
+
+enum PublishStatus {
+  DRAFT
+  PUBLISHED
+  ARCHIVED
+}
+
+enum OrderStatus {
+  PENDING
+  CONFIRMED
+  SHIPPED
+  DELIVERED
+  CANCELLED
+}
+
+enum MediaMimeCategory {
+  IMAGE
+  VIDEO
+  FILE
+}
+
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String   @map("password_hash")
+  name         String?
+  avatar       String?  // URL or storage key
+  role         Role     @default(READER)
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  posts        Post[]
+  orders       Order[]
+  mediaUploads Media[]
+  activityLogs ActivityLog[]
+  reviews      Review[]
+
+  @@index([email])
+  @@map("users")
+}
+
+model Page {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  type           PageType
+  status         PublishStatus @default(DRAFT)
+  content        String        @default("")
+  seoTitle       String?       @map("seo_title")
+  seoDescription String?       @map("seo_description")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  blocks Block[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([type])
+  @@map("pages")
+}
+
+model Block {
+  id        String   @id @default(cuid())
+  pageId    String   @map("page_id")
+  type      String   // e.g. "hero", "text", "gallery", "cta"
+  order     Int
+  content   Json
+  createdAt DateTime @default(now()) @map("created_at")
+
+  page Page @relation(fields: [pageId], references: [id], onDelete: Cascade)
+
+  @@index([pageId])
+  @@map("blocks")
+}
+
+model Post {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  title          String
+  excerpt        String?       @db.Text
+  content        String        @db.Text
+  featuredImage  String?       @map("featured_image") // Media.storageKey or URL
+  authorId       String        @map("author_id")
+  status         PublishStatus @default(DRAFT)
+  tags           String[]      @default([])
+  seoTitle       String?       @map("seo_title")
+  seoDescription String?       @map("seo_description")
+  publishedAt    DateTime?     @map("published_at")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  author  User     @relation(fields: [authorId], references: [id])
+  reviews Review[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([publishedAt])
+  @@index([authorId])
+  @@map("posts")
+}
+
+model Category {
+  id       String  @id @default(cuid())
+  name     String
+  slug     String  @unique
+  parentId String? @map("parent_id")
+
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+  products Product[]
+
+  @@index([slug])
+  @@map("categories")
+}
+
+model Product {
+  id             String        @id @default(cuid())
+  slug           String        @unique
+  name           String
+  description    String        @db.Text
+  price          Decimal       @db.Decimal(10, 2)
+  stock          Int           @default(0)
+  images         Json          @default("[]") // string[] of storage keys
+  categoryId     String?       @map("category_id")
+  status         PublishStatus @default(DRAFT)
+  seoTitle       String?       @map("seo_title")
+  seoDescription String?       @map("seo_description")
+  createdAt      DateTime      @default(now()) @map("created_at")
+  updatedAt      DateTime      @updatedAt @map("updated_at")
+
+  category Category? @relation(fields: [categoryId], references: [id])
+  reviews  Review[]
+
+  @@index([slug])
+  @@index([status])
+  @@index([categoryId])
+  @@map("products")
+}
+
+model Order {
+  id        String      @id @default(cuid())
+  userId    String?     @map("user_id") // nullable for guest checkout
+  status    OrderStatus @default(PENDING)
+  total     Decimal     @db.Decimal(10, 2)
+  items     Json        // { productId, name, price, quantity }[]
+  // Shipping info stored as JSON to avoid over-normalization at this stage
+  shipping  Json        @default("{}") // { name, email, address, city, zip, country }
+  notes     String?
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@map("orders")
+}
+
+model Media {
+  id           String            @id @default(cuid())
+  filename     String
+  originalName String            @map("original_name")
+  mimeType     String            @map("mime_type")
+  mimeCategory MediaMimeCategory @map("mime_category")
+  size         Int               // bytes
+  storageKey   String            @map("storage_key") // path on disk or S3 key
+  url          String            // public URL (or /api/media/[key] for local)
+  alt          String?           // alt text for accessibility
+  caption      String?           // caption shown below image
+  uploadedBy   String            @map("uploaded_by")
+  createdAt    DateTime          @default(now()) @map("created_at")
+
+  uploader User @relation(fields: [uploadedBy], references: [id])
+
+  @@index([uploadedBy])
+  @@index([mimeCategory])
+  @@map("media")
+}
+
+
+model Setting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json     // flexible: string, number, object, array
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("settings")
+}
+
+
+enum ActivityAction {
+  CREATE
+  UPDATE
+  DELETE
+  PUBLISH
+  UNPUBLISH
+  LOGIN
+}
+
+enum ReviewStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model ActivityLog {
+  id         String         @id @default(cuid())
+  userId     String         @map("user_id")
+  action     ActivityAction
+  entityType String         @map("entity_type") // "post", "page", "product", etc.
+  entityId   String?        @map("entity_id")
+  entityName String?        @map("entity_name") // display name for the activity feed
+  meta       Json?          // extra details
+  createdAt  DateTime       @default(now()) @map("created_at")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([entityType])
+  @@index([createdAt])
+  @@map("activity_log")
+}
+
+
+model FeatureCard {
+  id          String   @id @default(cuid())
+  categoryTag String   @map("category_tag") // e.g. "CREATIVITÀ"
+  title       String
+  description String?  @db.Text
+  icon        String   @default("Star") // Lucide icon name
+  href        String?  // optional link target
+  color       String   @default("#6366F1") // accent/glow color
+  order       Int      @default(0)
+  active      Boolean  @default(true)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([order])
+  @@index([active])
+  @@map("feature_cards")
+}
+
+
+model Review {
+  id         String       @id @default(cuid())
+  productId  String?      @map("product_id")
+  postId     String?      @map("post_id")
+  userId     String?      @map("user_id")
+  authorName String?      @map("author_name") // null = anonymous
+  rating     Int          // 1–5
+  content    String       @db.Text
+  status     ReviewStatus @default(PENDING)
+  ipHash     String?      @map("ip_hash") // for rate limiting
+  createdAt  DateTime     @default(now()) @map("created_at")
+  updatedAt  DateTime     @updatedAt @map("updated_at")
+
+  product Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  post    Post?    @relation(fields: [postId], references: [id], onDelete: SetNull)
+  user    User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([productId])
+  @@index([postId])
+  @@index([userId])
+  @@index([status])
+  @@index([createdAt])
+  @@index([ipHash])
+  @@map("reviews")
+}
