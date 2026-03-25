@@ -19,6 +19,8 @@ const csp = [
 ].join("; ");
 
 const nextConfig: NextConfig = {
+  output: "standalone",
+  serverExternalPackages: ["sharp", "@imgly/background-removal-node"],
   transpilePackages: ["three", "postprocessing"],
   images: {
     formats: ["image/avif", "image/webp"],
