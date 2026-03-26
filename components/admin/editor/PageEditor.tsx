@@ -107,7 +107,7 @@ export default function PageEditor({ initialData, pageId }: PageEditorProps) {
         </div>
       )}
 
-      <div className="flex gap-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:gap-5">
         <div className="flex-1 min-w-0">
           <div className="bg-white border border-gray-200 rounded shadow-sm">
             <div className="bg-gray-50 border-b border-gray-200 px-3 py-2 font-semibold text-sm text-gray-700">
@@ -125,7 +125,7 @@ export default function PageEditor({ initialData, pageId }: PageEditorProps) {
           </div>
         </div>
 
-        <div className="w-64 flex-shrink-0 space-y-3">
+        <div className="w-full lg:w-64 flex-shrink-0 space-y-3">
           <PublishBox
             status={status}
             publishedAt={publishedAt}

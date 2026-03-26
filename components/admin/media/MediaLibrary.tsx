@@ -20,6 +20,7 @@ interface MediaItem {
 interface MediaLibraryProps {
   selectable?: boolean;
   onSelect?: (item: MediaItem) => void;
+  initialTab?: "library" | "upload";
 }
 
 function formatBytes(bytes: number): string {
@@ -32,7 +33,7 @@ function isImage(mimeType: string) {
   return mimeType.startsWith("image/");
 }
 
-export default function MediaLibrary({ selectable, onSelect }: MediaLibraryProps) {
+export default function MediaLibrary({ selectable, onSelect, initialTab = "library" }: MediaLibraryProps) {
   const [items, setItems] = useState<MediaItem[]>([]);
   const [loading, setLoading] = useState(false);
   const [search, setSearch] = useState("");
@@ -41,7 +42,7 @@ export default function MediaLibrary({ selectable, onSelect }: MediaLibraryProps
   const [editAlt, setEditAlt] = useState("");
   const [editCaption, setEditCaption] = useState("");
   const [saving, setSaving] = useState(false);
-  const [tab, setTab] = useState<"library" | "upload">("library");
+  const [tab, setTab] = useState<"library" | "upload">(initialTab);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const [pendingDelete, setPendingDelete] = useState<MediaItem | null>(null);

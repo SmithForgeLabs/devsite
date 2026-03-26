@@ -1,10 +1,18 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/prisma";
 import { withRoles, apiError, apiValidationError } from "@/lib/middleware/rbac";
 import { upsertSettingsBulkSchema } from "@/lib/validations/schemas";
 import { logActivity } from "@/lib/activity";
 import { ZodError } from "zod";
 import type { TokenPayload } from "@/lib/auth";
+
+function fmtVal(v: unknown): string {
+  if (v === undefined || v === null) return "(vuoto)";
+  if (Array.isArray(v)) return `[${v.length} elementi]`;
+  const s = typeof v === "string" ? v : JSON.stringify(v);
+  return s.length > 60 ? s.slice(0, 60) + "…" : s;
+}
 
 export const GET = withRoles(
   ["ADMIN"],
@@ -28,6 +36,12 @@ export const PUT = withRoles(
       return apiError("Dati non validi", 422);
     }
 
+    // Fetch current values before updating (for change log)
+    const existingRows = await prisma.setting.findMany({
+      where: { key: { in: input.map((i) => i.key) } },
+    });
+    const oldMap = Object.fromEntries(existingRows.map((r) => [r.key, r.value as unknown]));
+
     await prisma.$transaction(
       input.map(({ key, value }) =>
         prisma.setting.upsert({
@@ -38,9 +52,21 @@ export const PUT = withRoles(
       )
     );
 
-    // Log the keys that were changed
-    const changedKeys = input.map((i) => i.key).join(", ");
-    await logActivity(user.userId, "UPDATE", "settings", undefined, changedKeys);
+    // Build from→to change log
+    const changes = input
+      .map(({ key, value }) => {
+        const oldStr = fmtVal(oldMap[key]);
+        const newStr = fmtVal(value);
+        if (oldMap[key] === undefined) return `${key}: (nuovo) → "${newStr}"`;
+        if (oldStr === newStr) return null;
+        return `${key}: "${oldStr}" → "${newStr}"`;
+      })
+      .filter((c): c is string => c !== null);
+
+    // Bust ISR cache so frontend reflects new settings immediately
+    revalidatePath("/", "layout");
+
+    await logActivity(user.userId, "UPDATE", "settings", undefined, "Impostazioni", { changes });
 
     return NextResponse.json({ ok: true });
   }

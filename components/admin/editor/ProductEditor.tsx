@@ -138,7 +138,7 @@ export default function ProductEditor({ initialData, productId }: ProductEditorP
         </div>
       )}
 
-      <div className="flex gap-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:gap-5">
         <div className="flex-1 min-w-0 space-y-4">
           {/* Tabs */}
           <div className="flex border-b border-gray-200">
@@ -236,7 +236,7 @@ export default function ProductEditor({ initialData, productId }: ProductEditorP
           )}
         </div>
 
-        <div className="w-64 flex-shrink-0 space-y-3">
+        <div className="w-full lg:w-64 flex-shrink-0 space-y-3">
           <PublishBox
             status={status}
             publishedAt={publishedAt}

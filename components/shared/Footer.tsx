@@ -18,12 +18,7 @@ export default async function Footer() {
   const rawNav = s.nav_items;
   const navItems: NavItem[] = Array.isArray(rawNav)
     ? (rawNav as unknown as NavItem[])
-    : [
-        { id: "f-home", label: t("home"), href: "/", type: "link", order: 0 },
-        { id: "f-blog", label: "Blog", href: "/blog", type: "link", order: 1 },
-        { id: "f-portfolio", label: "Portfolio", href: "/portfolio", type: "link", order: 2 },
-        { id: "f-shop", label: t("shop"), href: "/shop", type: "link", order: 3 },
-      ];
+    : [];
 
   const flatNavLinks: { label: string; href: string }[] = [];
   for (const item of navItems) {

@@ -4,13 +4,6 @@ import ReviewsMarqueeSection from "@/components/shared/ReviewsMarqueeSection";
 import { prisma } from "@/lib/prisma";
 import type { NavItem, LogoShape } from "@/lib/nav/types";
 
-const DEFAULT_NAV: NavItem[] = [
-  { id: "default-home", label: "Home", href: "/", type: "link", order: 0 },
-  { id: "default-blog", label: "Blog", href: "/blog", type: "link", order: 1 },
-  { id: "default-portfolio", label: "Portfolio", href: "/portfolio", type: "link", order: 2 },
-  { id: "default-shop", label: "Negozio", href: "/shop", type: "link", order: 3 },
-];
-
 async function getSiteSettings() {
   try {
     const rows = await prisma.setting.findMany({
@@ -30,11 +23,11 @@ async function getSiteSettings() {
     const logoShape = (typeof map.logo_shape === "string"
       ? map.logo_shape.replace(/^"|"$/g, "")
       : "square") as LogoShape;
-    const navItems = Array.isArray(map.nav_items) ? (map.nav_items as NavItem[]) : DEFAULT_NAV;
+    const navItems: NavItem[] = Array.isArray(map.nav_items) ? (map.nav_items as NavItem[]) : [];
 
     return { siteName: siteName || "DevSite", logoUrl, logoShape, navItems };
   } catch {
-    return { siteName: "DevSite", logoUrl: "", logoShape: "square" as LogoShape, navItems: DEFAULT_NAV };
+    return { siteName: "DevSite", logoUrl: "", logoShape: "square" as LogoShape, navItems: [] };
   }
 }
 

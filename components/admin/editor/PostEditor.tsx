@@ -142,7 +142,7 @@ export default function PostEditor({ initialData, postId }: PostEditorProps) {
         </div>
       )}
 
-      <div className="flex gap-5">
+      <div className="flex flex-col gap-4 lg:flex-row lg:gap-5">
         {/* Main editor */}
         <div className="flex-1 min-w-0">
           <div className="bg-white border border-gray-200 rounded shadow-sm">
@@ -162,7 +162,7 @@ export default function PostEditor({ initialData, postId }: PostEditorProps) {
         </div>
 
         {/* Sidebar */}
-        <div className="w-64 flex-shrink-0 space-y-3">
+        <div className="w-full lg:w-64 flex-shrink-0 space-y-3">
           <PublishBox
             status={status === "ARCHIVED" ? "DRAFT" : status}
             publishedAt={publishedAt}

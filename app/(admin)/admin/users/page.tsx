@@ -82,6 +82,7 @@ export default function AdminUsersPage() {
     {
       key: "createdAt",
       label: "Registrato il",
+      className: "hidden sm:table-cell",
       render: (u) => (
         <span className="text-sm text-gray-500">{new Date(u.createdAt).toLocaleDateString("it-IT")}</span>
       ),
