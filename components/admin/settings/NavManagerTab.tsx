@@ -255,8 +255,9 @@ export default function NavManagerTab() {
                 <button
                   type="button"
                   onClick={() => removeItem(item.id)}
-                  className="p-1.5 text-gray-400 hover:text-red-500 rounded hover:bg-red-50 transition-colors"
-                  title="Rimuovi"
+                  disabled={item.href === "/"}
+                  className="p-1.5 text-gray-400 hover:text-red-500 rounded hover:bg-red-50 transition-colors disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:text-gray-400 disabled:hover:bg-transparent"
+                  title={item.href === "/" ? "Elemento Home protetto" : "Rimuovi"}
                 >
                   <Trash2 size={14} />
                 </button>

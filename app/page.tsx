@@ -12,13 +12,6 @@ import BlogCard from "@/components/shared/BlogCard";
 import ProductCard from "@/components/shared/ProductCard";
 import type { NavItem, LogoShape } from "@/lib/nav/types";
 
-const DEFAULT_NAV: NavItem[] = [
-  { id: "default-home", label: "Home", href: "/", type: "link", order: 0 },
-  { id: "default-blog", label: "Blog", href: "/blog", type: "link", order: 1 },
-  { id: "default-portfolio", label: "Portfolio", href: "/portfolio", type: "link", order: 2 },
-  { id: "default-shop", label: "Negozio", href: "/shop", type: "link", order: 3 },
-];
-
 async function getSiteSettings() {
   try {
     const rows = await prisma.setting.findMany({
@@ -29,10 +22,10 @@ async function getSiteSettings() {
     const siteName = (typeof map.site_name === "string" ? map.site_name : "").replace(/^"|"$/g, "") || "DevSite";
     const logoUrl = (typeof map.logo === "string" ? map.logo : "").replace(/^"|"$/g, "");
     const logoShape = ((typeof map.logo_shape === "string" ? map.logo_shape : "square").replace(/^"|"$/g, "")) as LogoShape;
-    const navItems = Array.isArray(map.nav_items) ? (map.nav_items as NavItem[]) : DEFAULT_NAV;
+    const navItems: NavItem[] = Array.isArray(map.nav_items) ? (map.nav_items as NavItem[]) : [];
     return { siteName, logoUrl, logoShape, navItems };
   } catch {
-    return { siteName: "DevSite", logoUrl: "", logoShape: "square" as LogoShape, navItems: DEFAULT_NAV };
+    return { siteName: "DevSite", logoUrl: "", logoShape: "square" as LogoShape, navItems: [] as NavItem[] };
   }
 }
 
@@ -44,7 +37,7 @@ export const metadata: Metadata = {
 export default async function HomePage() {
   const t = await getTranslations("home");
 
-  const [siteSettings, latestPosts, featuredProducts, featureCards, approvedReviews] = await Promise.all([
+  const [siteSettings, latestPosts, featuredProducts, featureCards, approvedReviews, blogPage, shopPage] = await Promise.all([
     getSiteSettings(),
     prisma.post.findMany({
       where: { status: "PUBLISHED" },
@@ -74,8 +67,13 @@ export default async function HomePage() {
       take: 20,
       select: { id: true, rating: true, content: true, authorName: true, createdAt: true },
     }),
+    prisma.page.findFirst({ where: { type: "BLOG", status: "PUBLISHED" }, select: { slug: true } }),
+    prisma.page.findFirst({ where: { type: "SHOP", status: "PUBLISHED" }, select: { slug: true } }),
   ]);
+
   const { siteName, logoUrl, logoShape, navItems } = siteSettings;
+  const blogSlug = blogPage?.slug ?? "blog";
+  const shopSlug = shopPage?.slug ?? "shop";
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -123,14 +121,14 @@ export default async function HomePage() {
           </p>
           <div className="mt-10 flex flex-wrap gap-3">
             <Link
-              href="/shop"
+              href={`/${shopSlug}`}
               className="inline-flex items-center gap-2 rounded-xl bg-white px-7 py-3.5 text-sm font-semibold text-[#09090B] transition-all hover:bg-zinc-100 hover:gap-3 active:scale-[0.98]"
             >
               {t("hero.cta")}
               <ArrowRight size={15} strokeWidth={2.2} />
             </Link>
             <Link
-              href="/blog"
+              href={`/${blogSlug}`}
               className="inline-flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.04] px-7 py-3.5 text-sm font-semibold text-zinc-300 transition-all hover:bg-white/[0.08] hover:border-white/20 active:scale-[0.98]"
             >
               Leggi il blog
@@ -180,7 +178,7 @@ export default async function HomePage() {
                 <h2 className="font-heading text-3xl font-bold text-white">Dal blog</h2>
               </div>
               <Link
-                href="/blog"
+                href={`/${blogSlug}`}
                 className="inline-flex items-center gap-1 text-sm font-medium text-zinc-400 transition-colors hover:text-white"
               >
                 Tutti gli articoli
@@ -192,6 +190,7 @@ export default async function HomePage() {
                 <BlogCard
                   key={post.id}
                   slug={post.slug}
+                  pageSlug={blogSlug}
                   title={post.title}
                   excerpt={post.excerpt}
                   featuredImage={post.featuredImage}
@@ -214,7 +213,7 @@ export default async function HomePage() {
                 <h2 className="font-heading text-3xl font-bold text-white">Prodotti in evidenza</h2>
               </div>
               <Link
-                href="/shop"
+                href={`/${shopSlug}`}
                 className="inline-flex items-center gap-1 text-sm font-medium text-zinc-400 transition-colors hover:text-white"
               >
                 Vai al negozio

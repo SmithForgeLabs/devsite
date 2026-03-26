@@ -8,6 +8,7 @@ import { useCartStore } from "@/store/cartStore";
 interface ProductCardProps {
   id: string;
   slug: string;
+  pageSlug?: string;
   name: string;
   price: number;
   images?: string[];
@@ -15,7 +16,7 @@ interface ProductCardProps {
   category?: string | null;
 }
 
-export default function ProductCard({ id, slug, name, price, images, stock = 0, category }: ProductCardProps) {
+export default function ProductCard({ id, slug, pageSlug = "shop", name, price, images, stock = 0, category }: ProductCardProps) {
   const addItem = useCartStore((s) => s.addItem);
   const firstImage = images?.[0] ?? null;
   const inStock = stock > 0;
@@ -28,7 +29,7 @@ export default function ProductCard({ id, slug, name, price, images, stock = 0, 
 
   return (
     <article className="group relative flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07] hover:shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-      <Link href={`/shop/${slug}`} className="block">
+      <Link href={`/${pageSlug}/${slug}`} className="block">
         <div className="relative aspect-square overflow-hidden bg-white/[0.03]">
           {firstImage ? (
             <Image
@@ -57,7 +58,7 @@ export default function ProductCard({ id, slug, name, price, images, stock = 0, 
           <span className="text-xs text-zinc-500 uppercase tracking-wider">{category}</span>
         )}
         <h3 className="font-heading text-sm font-semibold text-white leading-snug line-clamp-2">
-          <Link href={`/shop/${slug}`} className="transition-colors hover:text-zinc-300">
+          <Link href={`/${pageSlug}/${slug}`} className="transition-colors hover:text-zinc-300">
             {name}
           </Link>
         </h3>

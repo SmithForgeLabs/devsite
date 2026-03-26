@@ -11,6 +11,7 @@ interface Page {
   slug: string;
   type: string;
   status: string;
+  isSystem: boolean;
   createdAt: string;
 }
 
@@ -142,7 +143,7 @@ export default function AdminPagesPage() {
         rowActions={(p) => [
           { label: "Modifica", onClick: () => { window.location.href = `/admin/pages/${p.id}/edit`; } },
           { label: "Visualizza", onClick: () => window.open(`/${p.slug}`, "_blank") },
-          { label: "Elimina", onClick: () => handleDelete(p.id), destructive: true },
+          ...(!p.isSystem ? [{ label: "Elimina", onClick: () => handleDelete(p.id), destructive: true as const }] : []),
         ]}
         emptyMessage="Nessuna pagina trovata."
       />

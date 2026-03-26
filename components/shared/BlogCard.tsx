@@ -4,6 +4,7 @@ import { ArrowRight } from "lucide-react";
 
 interface BlogCardProps {
   slug: string;
+  pageSlug?: string;
   title: string;
   excerpt?: string | null;
   featuredImage?: string | null;
@@ -11,7 +12,7 @@ interface BlogCardProps {
   tags?: string[];
 }
 
-export default function BlogCard({ slug, title, excerpt, featuredImage, publishedAt, tags }: BlogCardProps) {
+export default function BlogCard({ slug, pageSlug = "blog", title, excerpt, featuredImage, publishedAt, tags }: BlogCardProps) {
   return (
     <article className="group flex flex-col overflow-hidden rounded-xl border border-white/10 bg-white/[0.04] transition-all duration-300 hover:-translate-y-1 hover:border-white/20 hover:bg-white/[0.07] hover:shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
       {featuredImage && (
@@ -32,7 +33,7 @@ export default function BlogCard({ slug, title, excerpt, featuredImage, publishe
           </time>
         )}
         <h2 className="font-heading font-semibold text-white leading-snug">
-          <Link href={`/blog/${slug}`} className="transition-colors hover:text-zinc-300">
+          <Link href={`/${pageSlug}/${slug}`} className="transition-colors hover:text-zinc-300">
             {title}
           </Link>
         </h2>
@@ -49,7 +50,7 @@ export default function BlogCard({ slug, title, excerpt, featuredImage, publishe
           </div>
         )}
         <Link
-          href={`/blog/${slug}`}
+          href={`/${pageSlug}/${slug}`}
           className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-indigo-400 transition-colors hover:text-indigo-300"
         >
           Leggi di più

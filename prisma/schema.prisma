@@ -20,6 +20,9 @@ enum PageType {
   PORTFOLIO
   BLOG
   SHOP
+  HOME
+  CUSTOM
+  CODE
 }
 
 enum PublishStatus {
@@ -113,6 +116,7 @@ model Page {
   content        String        @default("")
   seoTitle       String?       @map("seo_title")
   seoDescription String?       @map("seo_description")
+  isSystem       Boolean       @default(false) @map("is_system")
   createdAt      DateTime      @default(now()) @map("created_at")
   updatedAt      DateTime      @updatedAt @map("updated_at")
 

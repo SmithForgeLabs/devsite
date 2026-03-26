@@ -8,7 +8,7 @@ export const createPageSchema = z.object({
     .regex(/^[a-z0-9-]+$/, "Slug può contenere solo lettere minuscole, numeri e trattini"),
   title: z.string().min(1).max(500),
   content: z.string().default(""),
-  type: z.enum(["LANDING", "PORTFOLIO", "BLOG", "SHOP"]),
+  type: z.enum(["LANDING", "PORTFOLIO", "BLOG", "SHOP", "HOME", "CUSTOM", "CODE"]),
   status: z.enum(["DRAFT", "PUBLISHED"]).default("DRAFT"),
   seoTitle: z.string().max(200).optional().nullable(),
   seoDescription: z.string().max(500).optional().nullable(),

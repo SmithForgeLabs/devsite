@@ -37,7 +37,7 @@ export async function GET(req: NextRequest) {
       orderBy: { createdAt: "desc" },
       skip: (page - 1) * limit,
       take: limit,
-      select: { id: true, slug: true, title: true, type: true, status: true, createdAt: true },
+      select: { id: true, slug: true, title: true, type: true, status: true, isSystem: true, createdAt: true },
     }),
     prisma.page.count({ where }),
   ]);
@@ -60,8 +60,8 @@ export const POST = withRoles(
 
     const page = await prisma.page.create({ data: input });
 
-    // Auto-add to navigation if published
-    if (page.status === "PUBLISHED") {
+    // Auto-add to navigation if published (skip system pages — seeded separately)
+    if (page.status === "PUBLISHED" && !page.isSystem) {
       await addNavItem({ label: page.title, href: "/" + page.slug, type: "link" });
     }
 

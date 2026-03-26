@@ -72,13 +72,12 @@ export default async function RootLayout({
   const initialDevice: DeviceType =
     rawDevice === "phone" || rawDevice === "pc" ? rawDevice : "pc";
 
+  const colorStyle = primaryColor
+    ? ({ "--color-accent": primaryColor, "--color-accent-hover": primaryColor } as React.CSSProperties)
+    : undefined;
+
   return (
-    <html lang={locale} className={`${archivo.variable} ${dmSans.variable}`}>
-      <head>
-        {primaryColor && (
-          <style>{`:root { --color-accent: ${primaryColor}; --color-accent-hover: ${primaryColor}; }`}</style>
-        )}
-      </head>
+    <html lang={locale} className={`${archivo.variable} ${dmSans.variable}`} style={colorStyle}>
       <body>
         {gaId && (
           <>

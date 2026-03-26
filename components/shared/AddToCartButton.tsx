@@ -45,7 +45,6 @@ export default function AddToCartButton({ productId, slug, name, price, image, i
           : "bg-white text-[#09090B] hover:bg-zinc-100"
       }`}
     >
-      {/* Ripple effect on add */}
       {added && (
         <span className="absolute inset-0 animate-ping rounded-xl bg-emerald-500/10" />
       )}

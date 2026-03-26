@@ -12,7 +12,7 @@ interface PageEditorProps {
     title?: string;
     slug?: string;
     content?: string;
-    type?: "LANDING" | "PORTFOLIO" | "BLOG" | "SHOP";
+    type?: "LANDING" | "PORTFOLIO" | "BLOG" | "SHOP" | "HOME" | "CUSTOM" | "CODE";
     status?: "DRAFT" | "PUBLISHED";
     seoTitle?: string;
     seoDescription?: string;
@@ -20,6 +20,13 @@ interface PageEditorProps {
   };
   pageId?: string;
 }
+
+const AUTO_CONTENT_TYPES = ["BLOG", "SHOP", "PORTFOLIO"] as const;
+const AUTO_CONTENT_LABELS: Record<string, string> = {
+  BLOG: "Blog",
+  SHOP: "Negozio",
+  PORTFOLIO: "Portfolio",
+};
 
 export default function PageEditor({ initialData, pageId }: PageEditorProps) {
   const router = useRouter();
@@ -29,7 +36,7 @@ export default function PageEditor({ initialData, pageId }: PageEditorProps) {
   const [title, setTitle] = useState(initialData?.title ?? "");
   const [slug, setSlug] = useState(initialData?.slug ?? "");
   const [content, setContent] = useState(initialData?.content ?? "");
-  const [type, setType] = useState<"LANDING" | "PORTFOLIO" | "BLOG" | "SHOP">(initialData?.type ?? "LANDING");
+  const type = initialData?.type ?? "LANDING";
   const [status, setStatus] = useState<"DRAFT" | "PUBLISHED">(initialData?.status ?? "DRAFT");
   const [seoTitle, setSeoTitle] = useState(initialData?.seoTitle ?? "");
   const [seoDescription, setSeoDescription] = useState(initialData?.seoDescription ?? "");
@@ -134,23 +141,13 @@ export default function PageEditor({ initialData, pageId }: PageEditorProps) {
             loading={saving}
             isNew={!pageId}
           />
-          <div className="bg-white border border-gray-200 rounded shadow-sm">
-            <div className="bg-gray-50 border-b border-gray-200 px-3 py-2 font-semibold text-sm text-gray-700">
-              Tipo di pagina
+          {(AUTO_CONTENT_TYPES as readonly string[]).includes(type) && (
+            <div className="bg-blue-50 border border-blue-200 rounded shadow-sm p-3 text-xs text-blue-700 leading-relaxed">
+              <strong>Contenuto automatico.</strong> Il contenuto di tipo{" "}
+              <strong>{AUTO_CONTENT_LABELS[type]}</strong> viene generato automaticamente
+              dal sistema. Titolo e SEO vengono usati per la pagina.
             </div>
-            <div className="p-3">
-              <select
-                value={type}
-                onChange={(e) => setType(e.target.value as typeof type)}
-                className="w-full text-sm border border-gray-200 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#2271b1]"
-              >
-                <option value="LANDING">Landing page</option>
-                <option value="PORTFOLIO">Portfolio</option>
-                <option value="BLOG">Blog</option>
-                <option value="SHOP">Shop</option>
-              </select>
-            </div>
-          </div>
+          )}
           <SeoBox
             seoTitle={seoTitle}
             seoDescription={seoDescription}
