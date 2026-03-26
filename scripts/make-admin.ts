@@ -9,6 +9,16 @@ async function main() {
     process.exit(1);
   }
 
+  const existing = await prisma.user.findUnique({ where: { email }, select: { id: true, role: true } });
+  if (!existing) {
+    console.warn(`⚠️  User ${email} not found — skipping admin promotion.`);
+    return;
+  }
+  if (existing.role === "ADMIN") {
+    console.log(`ℹ️  User ${email} is already ADMIN.`);
+    return;
+  }
+
   const user = await prisma.user.update({
     where: { email },
     data: { role: "ADMIN" },
